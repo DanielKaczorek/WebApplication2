@@ -8,9 +8,39 @@ using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
 {
-    public class TestController : Controller
+    public class EmployeeController : Controller
     {
-        public ActionResult GetView()
+
+        public ActionResult AddNew()
+        {
+            return View("CreateEmployee");
+        }
+
+        public ActionResult SaveEmployee(Employee e, string BtnSubmit)
+        {
+
+            switch (BtnSubmit)
+            {
+                case "Save Employee":
+                    if (ModelState.IsValid)
+                    {
+                        EmployeeBusinessLayer ebl = new EmployeeBusinessLayer();
+                        ebl.SaveEmployee(e);
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return View("CreateEmployee");
+                    }
+                    break;
+                case "Cancel":
+                    return RedirectToAction("Index");
+                    break;
+            }
+            return new EmptyResult();
+
+        }
+        public ActionResult Index()
         {
             var employeeListViewModel = new EmployeeListViewModel();
             var employeeBusinessLayer = new EmployeeBusinessLayer();
@@ -37,10 +67,8 @@ namespace WebApplication2.Controllers
             }
 
             employeeListViewModel.Employees = empViewModels;
-            employeeListViewModel.UserName = "Admin";
 
-
-            return View("MyView", employeeListViewModel);
+            return View("Index", employeeListViewModel);
         }
 
 

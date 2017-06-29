@@ -16,13 +16,15 @@
     <b>Employee Data:</b><br/>
     <table border="1">
         <tr><td>Name</td><td>Salary</td></tr>
-    @foreach (EmployeeViewModel item in Model.Employees)
-    {
-        <tr>
-            <td>@item.EmployeeName</td>
-            <td style="background-color: @item.SalaryColor">@item.Salary</td>
-        </tr>
-    }
+        @foreach (EmployeeViewModel item in Model.Employees)
+        {
+            <tr>
+                <td>@item.EmployeeName</td>
+                <td style="background-color: @item.SalaryColor">@item.Salary</td>
+            </tr>
+        }
     </table>
+    
+    <a href ="/Employee/AddNew">Add New</a>
 </div>
 </body> </html>
