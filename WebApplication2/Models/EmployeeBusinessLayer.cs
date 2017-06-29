@@ -8,15 +8,19 @@ namespace WebApplication2.Models
 {
     public class EmployeeBusinessLayer
     {
-        public bool IsValidUser(UserDetails u)
+        public UserStatus GetUserValidity(UserDetails u)
         {
             if (u.UserName == "admin" && u.Password == "admin")
             {
-                return true;
+                return UserStatus.AuthenticatedAdmin;
+            }
+            else if (u.UserName == "daniel" && u.Password == "daniel")
+            {
+                return UserStatus.AuthentucatedUser;
             }
             else
             {
-                return false;
+                return UserStatus.NonAuthenticatedUser;
             }
         }
         public List<Employee> GetEmployees()

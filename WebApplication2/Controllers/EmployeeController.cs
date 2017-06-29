@@ -5,17 +5,32 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication2.Models;
 using WebApplication2.ViewModels;
+using WebApplication2.Filters;
 
 namespace WebApplication2.Controllers
 {
     public class EmployeeController : Controller
     {
+        [ChildActionOnly]
+        public ActionResult GetAddNewLink()
+        {
+            if (Convert.ToBoolean(Session["IsAdmin"]))
+            {
+                return PartialView("AddNewLink");
+            }
+            else
+            {
+                return new EmptyResult();
+            }
+        }
 
+        [AdminFilters]
         public ActionResult AddNew()
         {
             return View("CreateEmployee", new CreateEmployeeViewModel());
         }
 
+        [AdminFilters]
         public ActionResult SaveEmployee(Employee e, string BtnSubmit)
         {
 
@@ -84,9 +99,13 @@ namespace WebApplication2.Controllers
 
             employeeListViewModel.Employees = empViewModels;
 
+
+            employeeListViewModel.footer = new FooterViewModel();
+            employeeListViewModel.footer.CompanyName = "Mayborn";
+            employeeListViewModel.footer.Year = DateTime.Now.Year.ToString();
+
             return View("Index", employeeListViewModel);
         }
-
 
         public string GetString()
         {
