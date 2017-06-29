@@ -13,7 +13,7 @@ namespace WebApplication2.Controllers
 
         public ActionResult AddNew()
         {
-            return View("CreateEmployee");
+            return View("CreateEmployee", new CreateEmployeeViewModel());
         }
 
         public ActionResult SaveEmployee(Employee e, string BtnSubmit)
@@ -30,7 +30,20 @@ namespace WebApplication2.Controllers
                     }
                     else
                     {
-                        return View("CreateEmployee");
+                        CreateEmployeeViewModel cevm = new CreateEmployeeViewModel();
+                        cevm.FirstName = e.FirstName;
+                        cevm.LastName = e.LastName;
+
+                        if (e.Salary != 0)
+                        {
+                            cevm.Salary = e.Salary.ToString();
+                        }
+                        else
+                        {
+                            cevm.Salary = ModelState["Salary"].Value.AttemptedValue;
+                        }
+                        
+                        return View("CreateEmployee", cevm);
                     }
                     break;
                 case "Cancel":
@@ -40,9 +53,12 @@ namespace WebApplication2.Controllers
             return new EmptyResult();
 
         }
+        [Authorize]
         public ActionResult Index()
         {
             var employeeListViewModel = new EmployeeListViewModel();
+            employeeListViewModel.UserName = User.Identity.Name;
+
             var employeeBusinessLayer = new EmployeeBusinessLayer();
 
             List<Employee> employees = employeeBusinessLayer.GetEmployees();

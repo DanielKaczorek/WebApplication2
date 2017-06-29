@@ -8,6 +8,17 @@ namespace WebApplication2.Models
 {
     public class EmployeeBusinessLayer
     {
+        public bool IsValidUser(UserDetails u)
+        {
+            if (u.UserName == "admin" && u.Password == "admin")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public List<Employee> GetEmployees()
         {
             SalesERPDAL s = new SalesERPDAL();
