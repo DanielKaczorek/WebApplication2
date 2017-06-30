@@ -27,7 +27,12 @@ namespace WebApplication2.Controllers
         [AdminFilters]
         public ActionResult AddNew()
         {
-            return View("CreateEmployee", new CreateEmployeeViewModel());
+            CreateEmployeeViewModel employeeListViewModel = new CreateEmployeeViewModel();
+            employeeListViewModel.FooterData = new FooterViewModel();
+            employeeListViewModel.FooterData.CompanyName = "Mayborn";
+            employeeListViewModel.FooterData.Year = DateTime.Now.Year.ToString();
+            employeeListViewModel.UserName = User.Identity.Name;
+            return View("CreateEmployee", employeeListViewModel);
         }
 
         [AdminFilters]
@@ -57,7 +62,11 @@ namespace WebApplication2.Controllers
                         {
                             cevm.Salary = ModelState["Salary"].Value.AttemptedValue;
                         }
-                        
+                        cevm.FooterData = new FooterViewModel();
+                        cevm.FooterData.CompanyName = "Mayborn";
+                        cevm.FooterData.Year = DateTime.Now.Year.ToString();
+                        cevm.UserName = User.Identity.Name;
+
                         return View("CreateEmployee", cevm);
                     }
                     break;
@@ -100,9 +109,9 @@ namespace WebApplication2.Controllers
             employeeListViewModel.Employees = empViewModels;
 
 
-            employeeListViewModel.footer = new FooterViewModel();
-            employeeListViewModel.footer.CompanyName = "Mayborn";
-            employeeListViewModel.footer.Year = DateTime.Now.Year.ToString();
+            employeeListViewModel.FooterData = new FooterViewModel();
+            employeeListViewModel.FooterData.CompanyName = "Mayborn";
+            employeeListViewModel.FooterData.Year = DateTime.Now.Year.ToString();
 
             return View("Index", employeeListViewModel);
         }

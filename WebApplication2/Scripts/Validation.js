@@ -26,7 +26,8 @@
         else { return ""; }
     }
     function IsSalaryInValid() {
-        if (isNaN($('#TxtSalary').val)) {
+        var num = $('#TxtSalary').val();
+        if (isNaN(num)) {
             return 'Enter valid salary';
         }
         else { return ""; }

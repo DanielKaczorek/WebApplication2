@@ -1,35 +1,29 @@
 ﻿@using WebApplication2.ViewModels
 @model EmployeeListViewModel
-
 @{
     Layout = "~/Views/Shared/MyLayout.cshtml";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>MyView</title>
-</head>
-<body>
-<div>
-    <div style="text-align:right"> Hello, @Model.UserName <a href="/Authentication/Logout">Logout</a></div>
 
-    @Html.Action("GetAddNewLink");
-    
-    <b>Employee Data:</b><br/>
-    <table border="1">
-        <tr><td>Name</td><td>Salary</td></tr>
-        @foreach (EmployeeViewModel item in Model.Employees)
-        {
-            <tr>
-                <td>@item.EmployeeName</td>
-                <td style="background-color: @item.SalaryColor">@item.Salary</td>
-            </tr>
+@section TitleSection{
+    MyView
+}
+@section ContentBody{
+    <div>
+        @{
+            Html.RenderAction("GetAddNewLink");
         }
-    </table>
-    
-    @{
-        Html.RenderPartial("Footer", Model.footer);
-    }
-</div>
-</body> </html>
+        <table border="1">
+            <tr>
+                <th>Employee Name</th>
+                <th>Salary</th>
+            </tr>
+            @foreach (EmployeeViewModel item in Model.Employees)
+            {
+                <tr>
+                    <td>@item.EmployeeName</td>
+                    <td style="background-color:@item.SalaryColor">@item.Salary</td>
+                </tr>
+            }
+        </table>
+    </div>
+}
