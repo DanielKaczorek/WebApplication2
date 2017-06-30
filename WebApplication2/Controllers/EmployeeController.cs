@@ -25,17 +25,15 @@ namespace WebApplication2.Controllers
         }
 
         [AdminFilters]
+        [HeaderFooterFiler]
         public ActionResult AddNew()
         {
             CreateEmployeeViewModel employeeListViewModel = new CreateEmployeeViewModel();
-            employeeListViewModel.FooterData = new FooterViewModel();
-            employeeListViewModel.FooterData.CompanyName = "Mayborn";
-            employeeListViewModel.FooterData.Year = DateTime.Now.Year.ToString();
-            employeeListViewModel.UserName = User.Identity.Name;
             return View("CreateEmployee", employeeListViewModel);
         }
 
         [AdminFilters]
+        [HeaderFooterFiler]
         public ActionResult SaveEmployee(Employee e, string BtnSubmit)
         {
 
@@ -62,10 +60,6 @@ namespace WebApplication2.Controllers
                         {
                             cevm.Salary = ModelState["Salary"].Value.AttemptedValue;
                         }
-                        cevm.FooterData = new FooterViewModel();
-                        cevm.FooterData.CompanyName = "Mayborn";
-                        cevm.FooterData.Year = DateTime.Now.Year.ToString();
-                        cevm.UserName = User.Identity.Name;
 
                         return View("CreateEmployee", cevm);
                     }
@@ -78,6 +72,7 @@ namespace WebApplication2.Controllers
 
         }
         [Authorize]
+        [HeaderFooterFiler]
         public ActionResult Index()
         {
             var employeeListViewModel = new EmployeeListViewModel();
@@ -107,11 +102,6 @@ namespace WebApplication2.Controllers
             }
 
             employeeListViewModel.Employees = empViewModels;
-
-
-            employeeListViewModel.FooterData = new FooterViewModel();
-            employeeListViewModel.FooterData.CompanyName = "Mayborn";
-            employeeListViewModel.FooterData.Year = DateTime.Now.Year.ToString();
 
             return View("Index", employeeListViewModel);
         }

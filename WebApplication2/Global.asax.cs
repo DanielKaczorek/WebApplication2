@@ -15,6 +15,7 @@ namespace WebApplication2
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<SalesERPDAL>());
         }
     }

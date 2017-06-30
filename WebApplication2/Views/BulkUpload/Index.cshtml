@@ -1,0 +1,23 @@
+﻿@using WebApplication2.ViewModels
+@model FileUploadViewModel
+
+@section TitleSection{
+    Bulk Upload
+}
+@section HeaderSection
+{
+    <script type="text/javascript" src="@Url.Content("/Scripts/jquery-1.10.2.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("/Scripts/Employee.js")"></script>
+    <script type="text/javascript" src="@Url.Content("/Scripts/Validation.js")"></script>
+    <meta name="viewport" content="width=device-width" />
+}
+@section ContentBody{
+    <div> 
+        <a href="/Employee/Index">Back</a>
+        <form action="/BulkUpload/Upload" method="post" enctype="multipart/form-data">
+            Select File : <input id="selectFile" type="file" name="fileUpload" value="" />
+
+            <input id="fileUpload" type="submit" name="name" value="Upload" onclick="return CheckIfFileUploaded();" />
+        </form>
+    </div>
+}

@@ -1,4 +1,11 @@
 ﻿
+function CheckIfFileUploaded() {
+    if ($("#selectFile").val() == "") {
+        alert("Upload a file please!")
+        return false;
+    }
+}
+
 
     function IsFirstNameEmpty() {
         if ($("#TxtFName").val == "") {
